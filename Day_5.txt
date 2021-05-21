@@ -172,8 +172,81 @@ EXTRA
 
 1. Print all permutation of a string (2 approach)
 
-2. Rotate a Linked List 
+class Solution {
+    private:
+    
+    void  recurPermute(vector<int>&ds,vector<int>&nums,vector<vector<int>>&ans,int freq[]){
+        if(ds.size()==nums.size()){
+            ans.push_back(ds);
+            return;
+        }
+        for(int i=0;i<nums.size();i++){
+            if(!freq[i]){
+                ds.push_back(nums[i]);
+                freq[i]=1;
+                 recurPermute(ds,nums,ans,freq);
+                freq[i]=0;
+                ds.pop_back();
+            }
+        }
+        
+    }
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>ans;
+        vector<int>ds;
+        int freq[nums.size()];
+        for(int i=0;i<nums.size();i++)
+            freq[i]=0;
+        recurPermute(ds,nums,ans,freq);
+        return ans;
+    }
+};
 
+2. Rotate a Linked List 
+ 
+ /**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        //edge cases
+        //yha koi rotation nhi hoga
+        
+        if(!head || !head->next || k==0)
+            return head;
+        
+        //compute the length
+        ListNode* cur=head;
+        int len=1;
+        while(cur->next && ++len)
+            cur=cur->next;
+        
+        //go till that node k-len wala
+        
+        cur->next=head;
+        k=k%len;
+        k=len-k;
+        
+        while(k--)
+            cur=cur->next;
+        
+        //make the node head & break connection
+        
+        head=cur->next;
+        cur->next=NULL;
+        
+        return head;
+    }
+};
 
 3. Flattening Of a LInked LIst
 
