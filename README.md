@@ -48,3 +48,14 @@
 28. SELECTION SORT
 29. REVERSE A NUMBER
 30. LINEAR SEARCH
+
+
+# PRACTICE DAY-4
+ Question 37 to 46
+ 
+# Practice Day - 5
+  Question 47 to 52 + 3 Ques Extra
+ 
+ 
+# Practice Day -6 
+  Question 53 to 60
