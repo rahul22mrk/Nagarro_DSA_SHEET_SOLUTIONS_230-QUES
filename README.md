@@ -1,4 +1,9 @@
-# NAGAROO-DSA-PRACTICE-250+ QUES
+# NAGAROO-DSA-PRACTICE-230+ QUES
+
+# Nagarro Question List - Total 230 QUestion
+  94  - Easy Level Ques
+  120 - Medium Level Ques
+  16  - Hard Level Ques
 
 # PRACTICE DAY-1
 1. SIMPLE INTEREST (https://practice.geeksforgeeks.org/problems/simple-interest3457/1#submission)
