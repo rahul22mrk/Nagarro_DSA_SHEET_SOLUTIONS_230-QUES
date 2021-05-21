@@ -1,0 +1,185 @@
+47 Arrays-Intersection Of Two Arrays Medium
+https://leetcode.com/problems/intersection-of-two-arrays/
+
+
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+          sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+       
+        vector<int>v;
+        int i=0,j=0;
+        
+        while(i<nums1.size() && j<nums2.size())
+        {
+          if(nums1[i]<nums2[j])
+          {
+              i++;
+          }
+            
+          else if(nums1[i]>nums2[j])
+          {
+              j++;
+          }
+        
+          else{
+                if (!count(v.begin(),v.end(),nums1[i])){
+                v.push_back(nums1[i]);}
+              
+              
+                i++;
+                j++;
+                } 
+            
+            
+             }
+        return v;
+    }
+};
+
+
+---------------------------------------------------------------------------------------------------------------
+48 Counting Sort Easy
+https://www.techiedelight.com/counting-sort-algorithm-implementation/
+
+
+void countSort(int arr[],int n,int k)
+{
+
+	int freq[k],output[n];
+	memset(freq,0,sizeof(freq));
+	for(int i=0;i<n;i++)
+		freq[arr[i]]++;
+
+
+	//store the starting index of each element
+	int total=0;
+	for(int i=0;i<k;i++)
+	{
+
+		int oldCount=freq[i];
+		freq[i]=total;
+		total+=oldCount;
+	}
+
+	for(int i=0;i<n;i++)
+	{
+		output[freq[arr[i]]]=arr[i];
+		freq[arr[i]]++;
+	}
+	for(int i=0;i<n;i++)
+		cout<<output[i]<<" ";
+}
+
+---------------------------------------------------------------------------------------------------------------
+49 Form Biggest Number Hard
+https://leetcode.com/problems/largest-number/
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+50 Minimum Swaps to Sort Medium
+https://practice.geeksforgeeks.org/problems/minimum-swaps/1
+class Solution 
+{
+    public:
+    //Function to find the minimum number of swaps required to sort the array. 
+	int minSwaps(vector<int>&nums)
+	{
+	    // Code here
+	    int N= nums.size(); 
+	    
+	    vector<pair<int,int>>v(N);
+	    for(int i=0;i<N;i++)
+	    {
+	        v[i]={nums[i],i};
+	    }
+	    sort(v.begin(),v.end());
+	    int c=0;
+	    for(int i=0;i<N;i++)
+	    {
+	        if(v[i].second==i) 
+	          continue;
+	        else{
+	            c++;
+	            swap(v[i],v[v[i].second]);
+	            i--;
+	        }
+	    }
+	    return c;   
+	}
+};
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+51 Count Sort Easy
+https://www.geeksforgeeks.org/counting-sort/
+
+
+
+void countSort(int arr[],int n,int k)
+{
+
+	int freq[k],output[n];
+	memset(freq,0,sizeof(freq));
+	for(int i=0;i<n;i++)
+		freq[arr[i]]++;
+
+
+	//store the starting index of each element
+	int total=0;
+	for(int i=0;i<k;i++)
+	{
+
+		int oldCount=freq[i];
+		freq[i]=total;
+		total+=oldCount;
+	}
+
+	for(int i=0;i<n;i++)
+	{
+		output[freq[arr[i]]]=arr[i];
+		freq[arr[i]]++;
+	}
+	for(int i=0;i<n;i++)
+		cout<<output[i]<<" ";
+}
+
+---------------------------------------------------------------------------------------------------------------------------
+52 0's_At_End ( Time Complexity ) Easy
+https://www.youtube.com/watch?v=6ftmVfUg9A8
+
+void fun(int arr[],int n)
+{
+	int i=0,j=n-1;
+	while(i<j)
+	{
+
+		if(arr[i]==1)i++;
+		if(arr[j]==0)j--;
+		if(i<j)
+		{
+
+			int temp=arr[i];
+			arr[i]=arr[j];
+			arr[j]=temp;
+		}
+	}
+
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+EXTRA 
+
+1. Print all permutation of a string (2 approach)
+
+2. Rotate a Linked List 
+
+
+3. Flattening Of a LInked LIst
+
+
+
+Disclaimer:Solve Every qus bcoz only that will help if you wait for discussion it will not help you.
+Warning:Ignoring of Communication will Cost we people very much.
+
+
