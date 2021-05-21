@@ -4,6 +4,10 @@
   94  - Easy Level Ques
   120 - Medium Level Ques
   16  - Hard Level Ques
+  
+#Total Ques Solved 
+- 1 to 60 till 21 may 2k21  
+  
 
 # PRACTICE DAY-1
 1. SIMPLE INTEREST (https://practice.geeksforgeeks.org/problems/simple-interest3457/1#submission)
