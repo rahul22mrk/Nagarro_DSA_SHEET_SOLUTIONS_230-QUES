@@ -330,28 +330,32 @@ int main()
 }
 
 
-orr-----------------------------------------------------
+or   ------------
 
+Approach 2:
+
+If N strings is given as input and we have to find the largest string. (String which contains maximum elements).
+In that case Solution will be like this:
 
 #include<iostream>
 #include<string>
 using namespace std;
-int main()
- {
- int n;
- string str, mxtr;
- cin>>n;
- int len=0,max=0;
-for(int i=0;i<n;i++)
-{
- cin>>str;
- len=str.size();
- if(len>max)
- {
- max=len;
- mxtr= str;
+  int main()
+  {
+  int n;
+  string str, mxtr;
+  cin>>n;
+  int len=0,max=0;
+  for(int i=0;i<n;i++)
+  {
+  cin>>str;
+  len=str.size();
+  if(len>max)
+  {
+  max=len;
+  mxtr= str;
+  }
  }
-}
  cout<<mxtr;
 }
 
