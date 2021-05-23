@@ -68,3 +68,6 @@
  
 # Practice Day -6 
   Question 53 to 60
+  
+# Practice Day - 7 
+  Question 62 to 70
