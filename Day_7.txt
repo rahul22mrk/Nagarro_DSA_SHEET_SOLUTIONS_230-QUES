@@ -1,0 +1,305 @@
+62 Strings-String Compression Easy
+Take as input S, a string. Write a function that does basic string compression. Print the value returned. E.g. for input “aaabbccds” print out a3b2c2d1s1.
+
+Input Format
+A single String S
+
+Constraints
+1 < = length of String < = 1000
+
+Output Format
+The compressed String.
+
+Sample Input
+aaabbccds
+Sample Output
+a3b2c2d1s1
+Explanation
+In the given sample test case 'a' is repeated 3 times consecutively, 'b' is repeated twice, 'c' is repeated twice and 'd and 's' occurred only once.
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+
+	string str;
+	cin>>str;
+	string temp="";
+	int c=0;
+	vector<string>v;
+	int len=str.size();
+	for(int i=0;i<len;)
+	{
+		c=0;
+		char ch=str[i];
+		while(ch==str[i+1])
+		{
+
+			i++;
+			c++;
+		}i++;c++;
+		//cout<<c;
+	    string str1= to_string(c);
+	    string str2;
+	    str2+=ch;
+         //cout<<" "<<str1<<" "<<str2<<" ";
+
+		v.push_back(str2);
+		v.push_back(str1);
+
+
+
+	}
+	for(int i=0;i<v.size();i++)
+			cout<<v[i];
+}
+
+****************************************************************************************
+
+63.
+You are provided n numbers (both +ve and -ve). Numbers are arranged in a circular form. You need to find the maximum sum of consecutive numbers.
+
+Input Format
+First line contains integer t which is number of test case.
+For each test case, it contains an integer n which is the size of array and next line contains n space separated integers denoting the elements of the array.
+
+Constraints
+1<=t<=100
+1<=n<=1000
+|Ai| <= 10000
+
+Output Format
+Print the maximum circular sum for each testcase in a new line.
+
+Sample Input
+1
+7
+8 -8 9 -9 10 -11 12
+Sample Output
+22
+Explanation
+Maximum Circular Sum = 22 (12 + 8 - 8 + 9 - 9 + 10)
+
+
+
+***************************************************************************************
+
+64)
+
+You are provided n numbers of array. You need to find the maximum length of bitonic subarray. A subarray A[i … j] is biotonic if there is a k with i <= k <= j such that A[i] <= A[i + 1] … <= A[k] >= A[k + 1] >= .. A[j – 1] > = A[j] i.e subarray is first increasing and then decreasing or entirely increasing or decreasing.
+
+Input Format
+First line contains integer t which is number of test case. For each test case, it contains an integer n which is the size of array and next line contains n space separated integers.
+
+Constraints
+1<=t<=100 1<=n<=1000000
+
+Output Format
+Print the maximum length.
+
+Sample Input
+2
+6
+12 4 78 90 45 23
+4
+40 30 20 10
+Sample Output
+5
+4
+Explanation
+ForMaximum length = 4, 78, 90, 45, 23
+
+
+
+
+	int bitonic(vector<int> arr, int n) {
+	    // code here
+	    
+	    int lis[n],lds[n];
+	    lis[0]=1;
+	    lds[n-1]=1;
+	    for(int i=1;i<n;i++)
+	    {
+	        int maxc=0;
+	        for(int j=0;j<i;j++)
+	        {
+	            if(arr[i]>arr[j])
+	            {
+	                if(maxc<lis[j])
+	                maxc=lis[j];
+	            }
+	        }
+	        lis[i]=maxc+1;
+	    }
+	 
+	     for(int i=n-1;i>=0;i--)
+	    {
+	        int maxc=0;
+	        for(int j=n-1;j>i;j--)
+	        {
+	            if(arr[i]>arr[j])
+	            {
+	                if(maxc<lds[j])
+	                maxc=lds[j];
+	            }
+	        }
+	        lds[i]=maxc+1;
+	    }
+	    
+	    int resB=lis[0]+lds[0]-1;
+	    for(int i=1;i<n;i++)
+	    {
+	        
+	        
+	            int temp=lis[i]+lds[i]-1;
+	        if(temp>resB)
+	        resB=temp;
+	        
+	        
+	    }
+	    return resB;
+	}
+
+******************************************************************************************
+
+65)
+
+Take as input a 2-d array. Print the 2-D array in spiral form anti-clockwise.
+
+Input Format
+Two integers M(row) and N(colomn) and further M * N integers(2-d array numbers).
+
+Constraints
+Both M and N are between 1 to 10.
+
+Output Format
+All M * N integers separated by commas with 'END' written in the end(as shown in example).
+
+Sample Input
+4 4
+11 12 13 14
+21 22 23 24
+31 32 33 34
+41 42 43 44
+Sample Output
+11, 21, 31, 41, 42, 43, 44, 34, 24, 14, 13, 12, 22, 32, 33, 23, END
+Explanation
+For spiral level anti-clockwise traversal, Go for first column-> last row ->last column-> first row and then do the same traversal for the remaining matrix .
+
+***************************************************************************************
+
+Qus 66)
+
+Given a 2D array of size N x N. Rotate the array 90 degrees anti-clockwise.
+
+
+
+Input Format
+First line contains a single integer N. Next N lines contain N space separated integers.
+
+Constraints
+N < 1000
+
+Output Format
+Print N lines with N space separated integers of the rotated array.
+
+Sample Input
+4
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+Sample Output
+4 8 12 16 
+3 7 11 15 
+2 6 10 14 
+1 5 9 13 
+Explanation
+Rotate the array 90 degrees anticlockwise.
+
+
+
+
+#include<iostream>
+using namespace std;
+int main()
+{
+
+	int n,m;
+	cin>>n>>m;
+	int arr[n][m];
+	for(int i=0;i<n;i++)
+	{
+
+		for(int j=0;j<m;j++)
+		{
+
+			cin>>arr[i][j];
+		}
+	}
+cout<<"Anti-ClockWise Rotation "<<endl;
+	for(int i=n-1;i>=0;i--)
+	{
+
+		for(int j=0;j<m;j++)
+			cout<<arr[j][i]<<" ";
+		cout<<endl;
+	}
+}
+
+**************************************************************************************************
+Qus 67)
+
+Luke Skywalker gave Chewbacca an integer number x. Chewbacca isn't good at numbers but he loves inverting digits in them. Inverting digit t means replacing it with digit 9 - t.
+
+Help Chewbacca to transform the initial number x to the minimum possible positive number by inverting some (possibly, zero) digits. The decimal representation of the final number shouldn't start with a zero.
+
+Input Format
+The first line contains a single integer x (1 ≤ x ≤ 10^18) — the number that Luke Skywalker gave to Chewbacca.
+
+Constraints
+x <= 100000000000000000
+
+Output Format
+Print the minimum possible positive number that Chewbacca can obtain after inverting some digits. The number shouldn't contain leading zeroes.
+
+Sample Input
+4545
+Sample Output
+4444
+Explanation
+There are many numbers form after inverting the digit. For minimum number, check if inverting digit is less than or greater than the original digit. If it is less, then invert it otherwise leave it.
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n;
+    cin>>n;
+    int res=0,t=0,temp=n;
+    while(temp)
+	{
+
+		int r=temp%10;
+		if(9-r!=0&&9-r<r)
+		{
+
+			r=9-r;
+		}
+		res=res*10+r;
+		temp/=10;
+	}
+	temp=res;
+	res=0;
+	while(temp)
+	{
+
+		res=res*10+temp%10;
+		temp/=10;
+
+	}
+	cout<<res;
+}
