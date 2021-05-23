@@ -83,7 +83,37 @@ Explanation
 Maximum Circular Sum = 22 (12 + 8 - 8 + 9 - 9 + 10)
 
 
-
+class Solution {
+private:
+    int kadanes(vector<int>&nums){
+         int sum = nums[0], answer = nums[0];
+        for(int i=1; i<nums.size(); i++){
+            sum += nums[i];
+            if(sum < nums[i]) sum = nums[i];
+            answer = max(answer, sum);
+        }
+        return answer;
+    }
+public:
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int n=nums.size();
+        if(n== 0)
+        return 0;
+        
+        int x= kadanes(nums);
+        int y=0;
+        for(int i=0;i<n;i++){
+            y=y+nums[i];
+            nums[i]*=-1;
+        }
+        
+        int z= kadanes(nums);
+        if(y+z==0) return x;
+        
+        return max(x,y+z);
+        
+    }
+};
 ***************************************************************************************
 
 64)
@@ -188,6 +218,68 @@ Sample Output
 Explanation
 For spiral level anti-clockwise traversal, Go for first column-> last row ->last column-> first row and then do the same traversal for the remaining matrix .
 
+Sol-
+
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+int main()
+{
+   int m, n;
+    cin >> m >> n;
+    int ut, uj;
+    int a[m][n];
+    for (ut = 0; ut < m; ut++)
+        for (uj = 0; uj < n; uj++)
+            cin >> a[ut][uj];
+
+ int i, k = 0, l = 0;
+
+    /*  k - starting row index
+        m - ending row index
+        l - starting column index
+        n - ending column index
+        i - iterator
+    */
+
+    while (k < m && l < n)
+    {
+
+        /* Print the first column from the remaining columns */
+        for (i = k; i < m; ++i)
+            {
+                printf("%d, ", a[i][l]);
+            }
+            l++;    
+
+
+        /* Print the last row from the remaining rows */
+        for (i = l; i < n; ++i)
+            {
+                printf("%d, ", a[m-1][i]);
+            }
+            m--;
+
+
+        /* Print the last column from the remaining columns */
+        for (i = m-1; i >=k; --i)
+        {
+            printf("%d, ", a[i][n-1]);
+        }
+        n--;
+
+
+
+        /* Print the first row from the remaining rows */
+        for (i = n-1; i >=l; --i)
+        {
+            printf("%d, ", a[k][i]);
+        }
+        k++;
+    }
+    cout << "END";
+    return 0;
+}
 ***************************************************************************************
 
 Qus 66)
@@ -219,9 +311,7 @@ Sample Output
 Explanation
 Rotate the array 90 degrees anticlockwise.
 
-
-
-
+Approach-1:->
 #include<iostream>
 using namespace std;
 int main()
@@ -248,6 +338,82 @@ cout<<"Anti-ClockWise Rotation "<<endl;
 		cout<<endl;
 	}
 }
+Approach-2:->
+
+#include<iostream>
+using namespace std;
+
+void display(int a[][1000],int m){
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			cout<<a[i][j]<<" ";
+		}
+		cout<< endl;
+	}
+}
+void rotate(int a[][1000],int n){
+
+//reverse each row
+for(int row=0;row<n;row++){
+	int start_col=0;
+	int end_col=n-1;
+	while(start_col<end_col){
+		swap(a[row][start_col],a[row][end_col]);
+		start_col++;
+		end_col--;
+	}
+}
+
+//to take transpose
+
+for(int i=0;i<n;i++){
+	for(int j=0;j<n;j++){
+		if(i<j){
+			swap(a[i][j],a[j][i]);
+		}
+	}
+}
+
+}
+
+void rotate_stl(int a[][1000],int n){
+	//Same Thing  using stl reverse(start_container,end_container) method
+    
+	for(int i=0;i<n;i++){
+
+		//Here a[i] denotes the whole row in 2-D array
+		reverse(a[i],a[i]+n);
+	}
+
+	//to take transpose
+
+for(int i=0;i<n;i++){
+	for(int j=0;j<n;j++){
+		if(i<j){
+			swap(a[i][j],a[j][i]);
+		}
+	}
+}
+
+
+
+int main() {
+	int a[1000][1000];
+	int n;
+	cin>>n;
+
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			cin>>a[i][j];
+		}
+	}
+	rotate(a,n);
+	display(a,n);
+
+	return 0;
+}
+
+
 
 **************************************************************************************************
 Qus 67)
