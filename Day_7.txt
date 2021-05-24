@@ -144,52 +144,50 @@ ForMaximum length = 4, 78, 90, 45, 23
 
 
 
-	int bitonic(vector<int> arr, int n) {
+      int LongestBitonicSequence(vector<int>nums)
+	{
 	    // code here
-	    
-	    int lis[n],lds[n];
+	    int len=nums.size();
+	    int lis[len],lds[len];
 	    lis[0]=1;
-	    lds[n-1]=1;
-	    for(int i=1;i<n;i++)
+	    lds[len-1]=1;
+	    //Finding Longest Increasing Subsequence
+	    for(int i=1;i<len;i++)
 	    {
 	        int maxc=0;
 	        for(int j=0;j<i;j++)
 	        {
-	            if(arr[i]>arr[j])
+	            if(nums[j]<nums[i]&&lis[j]>maxc)
 	            {
-	                if(maxc<lis[j])
 	                maxc=lis[j];
 	            }
 	        }
 	        lis[i]=maxc+1;
 	    }
-	 
-	     for(int i=n-1;i>=0;i--)
+	    
+	    //Calculate Longest Decressing Subsequence
+	     for(int i=len-2;i>=0;i--)
 	    {
 	        int maxc=0;
-	        for(int j=n-1;j>i;j--)
+	        for(int j=len-1;j>i;j--)
 	        {
-	            if(arr[i]>arr[j])
+	            if(nums[j]<nums[i]&&lds[j]>maxc)
 	            {
-	                if(maxc<lds[j])
 	                maxc=lds[j];
 	            }
 	        }
 	        lds[i]=maxc+1;
 	    }
+	    int res=lis[0]+lds[0]-1;
 	    
-	    int resB=lis[0]+lds[0]-1;
-	    for(int i=1;i<n;i++)
+	    //Calculate Final Result
+	    for(int i=1;i<len;i++)
 	    {
-	        
-	        
-	            int temp=lis[i]+lds[i]-1;
-	        if(temp>resB)
-	        resB=temp;
-	        
-	        
+	        int sum=lds[i]+lis[i]-1;
+	        if(res<sum)
+	        res=sum;
 	    }
-	    return resB;
+	    return res;
 	}
 
 ******************************************************************************************
