@@ -1,0 +1,637 @@
+1. 54 Sorting In Linear Time
+You will be given an array containing only 0s, 1s and 2s. you have sort the array in linear time that is O(N) where N is the size of the array.
+
+Input Format
+The first line contains N, which is the size of the array. The following N lines contain either 0, or 1, or 2.
+
+Constraints
+1 <= N <= 10^6
+Each input element x, such that x ∈ { 0, 1, 2 }.
+
+Output Format
+Output the sorted array with each element separated by a newline.
+
+Sample Input
+5
+0
+1
+2
+1
+2
+Sample Output
+0
+1
+1
+2
+2
+Sort an array of 0’s 1’s 2’s without using extra space or sorting algo 
+https://www.youtube.com/watch?v=oaVa-9wmpns&list=PLgUwDviBIf0rPG3Ictpu74YWBQ1CaBkm2&index=2 (Problem link in description)
+
+
+solution
+**********************
+
+Approach 1:Sort The given Data
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        
+    }
+};
+Approach 2:Count the number of 0’s, 1’s and 2’s. After Counting, put all 0’s first, then 1’s and lastly 2’s in the array. We traverse the array two times. Time complexity will be O(n).
+            class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+int c0=0,c1=0,c2=0;
+        for(int i=0;i<nums.size();i++)
+        {
+           if(nums[i]==0)
+               c0++;
+            else if(nums[i]==1)
+                c1++;
+            else
+                c2++;
+        }
+        int i=0;
+        while(c0--)
+            nums[i++]=0;
+        while(c1--)
+            nums[i++]=1;
+        while(c2--)
+            nums[i++]=2;
+        
+            
+        
+        
+    }
+};
+
+Approach 3:Dutch national flag problem
+https://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int low=0,mid=0,high=nums.size()-1;
+        while(mid<=high)
+        {
+            if(nums[mid]==0)
+            {
+                swap(nums[mid],nums[low]);
+                mid++;
+                low++;
+            }
+            else if(nums[mid]==1)
+                mid++;
+            else
+            {
+                swap(nums[mid],nums[high]);
+                high--;
+            }
+        }
+        
+    }
+};
+
+
+************************************************************************************************************************************************
+
+2.
+You are provided n numbers (both +ve and -ve). Numbers are arranged in a circular form. You need to find the maximum sum of consecutive numbers.
+
+Input Format
+First line contains integer t which is number of test case.
+For each test case, it contains an integer n which is the size of array and next line contains n space separated integers denoting the elements of the array.
+
+Constraints
+1<=t<=100
+1<=n<=1000
+|Ai| <= 10000
+
+Output Format
+Print the maximum circular sum for each testcase in a new line.
+
+Sample Input
+1
+7
+8 -8 9 -9 10 -11 12
+Sample Output
+22
+Explanation
+Maximum Circular Sum = 22 (12 + 8 - 8 + 9 - 9 + 10)
+
+Approach 1 :
+-----------------
+int circularSubarraySum(int arr[], int num){
+        
+        // your code here
+        int max_subarray_sum=INT_MIN;
+        int min_subarray_sum=INT_MAX;
+        int MinTemp=0;
+        int MaxTemp=0;
+        int TotalSum=0;
+        for(int i=0;i<num;++i)
+        {
+            TotalSum+=arr[i];
+            MaxTemp+=arr[i];
+            max_subarray_sum=max_subarray_sum<MaxTemp?MaxTemp:max_subarray_sum;
+            MaxTemp=MaxTemp<0?0:MaxTemp;
+            
+            MinTemp+=arr[i];
+            min_subarray_sum=min_subarray_sum>MinTemp?MinTemp:min_subarray_sum;
+            MinTemp=MinTemp>0?0:MinTemp;
+        }
+        if(min_subarray_sum==TotalSum)
+        return max_subarray_sum;
+        return max(max_subarray_sum,(TotalSum-min_subarray_sum));
+    }
+
+
+Approach 2:
+------------
+class Solution {
+private:
+    int kadanes(vector<int>&nums){
+         int sum = nums[0], answer = nums[0];
+        for(int i=1; i<nums.size(); i++){
+            sum += nums[i];
+            if(sum < nums[i]) sum = nums[i];
+            answer = max(answer, sum);
+        }
+        return answer;
+    }
+public:
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int n=nums.size();
+        if(n== 0)
+        return 0;
+        
+        int x= kadanes(nums);
+        int y=0;
+        for(int i=0;i<n;i++){
+            y=y+nums[i];
+            nums[i]*=-1;
+        }
+        
+        int z= kadanes(nums);
+        if(y+z==0) return x;
+        
+        return max(x,y+z);
+        
+    }
+};
+************************************************************************************************************************
+
+3)
+
+You are provided n numbers of array. You need to find the maximum length of bitonic subarray. A subarray A[i … j] is biotonic if there is a k with i <= k <= j such that A[i] <= A[i + 1] … <= A[k] >= A[k + 1] >= .. A[j – 1] > = A[j] i.e subarray is first increasing and then decreasing or entirely increasing or decreasing.
+
+Input Format
+First line contains integer t which is number of test case. For each test case, it contains an integer n which is the size of array and next line contains n space separated integers.
+
+Constraints
+1<=t<=100 1<=n<=1000000
+
+Output Format
+Print the maximum length.
+
+Sample Input
+2
+6
+12 4 78 90 45 23
+4
+40 30 20 10
+Sample Output
+5
+4
+Explanation
+ForMaximum length = 4, 78, 90, 45, 23
+
+
+
+
+      int LongestBitonicSequence(vector<int>nums)
+	{
+	    // code here
+	    int len=nums.size();
+	    int lis[len],lds[len];
+	    lis[0]=1;
+	    lds[len-1]=1;
+	    //Finding Longest Increasing Subsequence
+	    for(int i=1;i<len;i++)
+	    {
+	        int maxc=0;
+	        for(int j=0;j<i;j++)
+	        {
+	            if(nums[j]<nums[i]&&lis[j]>maxc)
+	            {
+	                maxc=lis[j];
+	            }
+	        }
+	        lis[i]=maxc+1;
+	    }
+	    
+	    //Calculate Longest Decressing Subsequence
+	     for(int i=len-2;i>=0;i--)
+	    {
+	        int maxc=0;
+	        for(int j=len-1;j>i;j--)
+	        {
+	            if(nums[j]<nums[i]&&lds[j]>maxc)
+	            {
+	                maxc=lds[j];
+	            }
+	        }
+	        lds[i]=maxc+1;
+	    }
+	    int res=lis[0]+lds[0]-1;
+	    
+	    //Calculate Final Result
+	    for(int i=1;i<len;i++)
+	    {
+	        int sum=lds[i]+lis[i]-1;
+	        if(res<sum)
+	        res=sum;
+	    }
+	    return res;
+	}
+**************************************************************************************************************************************************************
+4.Take as input a 2-d array. Print the 2-D array in spiral form anti-clockwise.
+
+Input Format
+Two integers M(row) and N(colomn) and further M * N integers(2-d array numbers).
+
+Constraints
+Both M and N are between 1 to 10.
+
+Output Format
+All M * N integers separated by commas with 'END' written in the end(as shown in example).
+
+Sample Input
+4 4
+11 12 13 14
+21 22 23 24
+31 32 33 34
+41 42 43 44
+Sample Output
+11, 21, 31, 41, 42, 43, 44, 34, 24, 14, 13, 12, 22, 32, 33, 23, END
+Explanation
+For spiral level anti-clockwise traversal, Go for first column-> last row ->last column-> first row and then do the same traversal for the remaining matrix .
+
+Sol-
+
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+int main()
+{
+   int m, n;
+    cin >> m >> n;
+    int ut, uj;
+    int a[m][n];
+    for (ut = 0; ut < m; ut++)
+        for (uj = 0; uj < n; uj++)
+            cin >> a[ut][uj];
+
+ int i, k = 0, l = 0;
+
+    /*  k - starting row index
+        m - ending row index
+        l - starting column index
+        n - ending column index
+        i - iterator
+    */
+
+    while (k < m && l < n)
+    {
+
+        /* Print the first column from the remaining columns */
+        for (i = k; i < m; ++i)
+            {
+                printf("%d, ", a[i][l]);
+            }
+            l++;    
+
+
+        /* Print the last row from the remaining rows */
+        for (i = l; i < n; ++i)
+            {
+                printf("%d, ", a[m-1][i]);
+            }
+            m--;
+
+
+        /* Print the last column from the remaining columns */
+        for (i = m-1; i >=k; --i)
+        {
+            printf("%d, ", a[i][n-1]);
+        }
+        n--;
+
+
+
+        /* Print the first row from the remaining rows */
+        for (i = n-1; i >=l; --i)
+        {
+            printf("%d, ", a[k][i]);
+        }
+        k++;
+    }
+    cout << "END";
+    return 0;
+}
+
+********************************************************************************************************************************************************
+
+5. Counting Sort Easy
+https://www.techiedelight.com/counting-sort-algorithm-implementation/
+
+
+void countSort(int arr[],int n,int k)
+{
+
+	int freq[k],output[n];
+	memset(freq,0,sizeof(freq));
+	for(int i=0;i<n;i++)
+		freq[arr[i]]++;
+
+
+	//store the starting index of each element
+	int total=0;
+	for(int i=0;i<k;i++)
+	{
+
+		int oldCount=freq[i];
+		freq[i]=total;
+		total+=oldCount;
+	}
+
+	for(int i=0;i<n;i++)
+	{
+		output[freq[arr[i]]]=arr[i];
+		freq[arr[i]]++;
+	}
+	for(int i=0;i<n;i++)
+		cout<<output[i]<<" ";
+}
+
+
+*************************************************************************************************************************************************
+6. Form Biggest Number Hard
+https://leetcode.com/problems/largest-number/
+
+*********************************************************************************************************************************************************
+
+7. Minimum Swaps to Sort Medium
+https://practice.geeksforgeeks.org/problems/minimum-swaps/1
+
+***********************************************************************************************************************************************************
+
+ 8. Print all permutation of a string (2 approach)
+
+class Solution {
+    private:
+    
+    void  recurPermute(vector<int>&ds,vector<int>&nums,vector<vector<int>>&ans,int freq[]){
+        if(ds.size()==nums.size()){
+            ans.push_back(ds);
+            return;
+        }
+        for(int i=0;i<nums.size();i++){
+            if(!freq[i]){
+                ds.push_back(nums[i]);
+                freq[i]=1;
+                 recurPermute(ds,nums,ans,freq);
+                freq[i]=0;
+                ds.pop_back();
+            }
+        }
+        
+    }
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>ans;
+        vector<int>ds;
+        int freq[nums.size()];
+        for(int i=0;i<nums.size();i++)
+            freq[i]=0;
+        recurPermute(ds,nums,ans,freq);
+        return ans;
+    }
+};
+***********************************************************************************************************************************************************
+9. Rotate a Linked List 
+ 
+ /**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        //edge cases
+        //yha koi rotation nhi hoga
+        
+        if(!head || !head->next || k==0)
+            return head;
+        
+        //compute the length
+        ListNode* cur=head;
+        int len=1;
+        while(cur->next && ++len)
+            cur=cur->next;
+        
+        //go till that node k-len wala
+        
+        cur->next=head;
+        k=k%len;
+        k=len-k;
+        
+        while(k--)
+            cur=cur->next;
+        
+        //make the node head & break connection
+        
+        head=cur->next;
+        cur->next=NULL;
+        
+        return head;
+    }
+};
+**************************************************************************************************************************************************************
+10. Flattening Of a LInked LIst
+
+
+*************************************************************************************************************************************************************
+
+Qus 11- Take as input N, the size of array. Take N more inputs and store that in an array. Take as input “target”, a number. Write a function which prints all triplets of numbers which sum to target.
+Input Format
+First line contains input N.
+Next line contains N space separated integers denoting the elements of the array.
+The third line contains a single integer T denoting the target element.
+Constraints
+Length of Array should be between 1 and 1000.
+Output Format
+Print all the triplet present in the array in a new line each. The triplets must be printed as A, B and C where A,B and C are the elements of the triplet ( A<=B<=C) and all triplets must be printed in sorted order. Print only unique triplets.
+Sample Input
+9
+5 7 9 1 2 4 6 8 3
+10
+Sample Output
+1, 2 and 7
+1, 3 and 6
+1, 4 and 5
+2, 3 and 5
+Explanation
+Array = {5, 7, 9, 1, 2, 4, 6 ,8 ,3}. Target number = 10. Find any three number in the given array which sum to target number.
+void printTriplet(int arr[],int n,int target)
+{
+sort(arr,arr+n);
+int l,h;
+for(int i=0;i<n-2;i++)
+{
+int l=i+1;
+int h=n-1;
+while(l<h)
+{
+if(arr[i]+arr[l]+arr[h]==target)
+{
+cout<<arr[i]<<" "<<arr[l]<<" "<<arr[h]<<endl;
+l++;h--;
+}
+else if(arr[i]+arr[l]+arr[h]>target)
+h--;
+else l++;
+}
+}
+}
+
+******************************************************************************************************************************************************
+Qus 12- https://www.techiedelight.com/trapping-rain-water-within-given-set-bars/
+int trappingWater(int arr[], int n){
+// Code here
+int ml[n],mr[n];
+ml[0]=arr[0];
+mr[n-1]=arr[n-1];
+for(int i=1;i<n;i++)
+{
+ml[i]=max(ml[i-1],arr[i]);
+}
+for(int j=n-2;j>=0;j--)
+mr[j]=max(mr[j+1],arr[j]);
+int temp[n],sum=0;
+for(int i=0;i<n;i++)
+{
+sum+=min(ml[i],mr[i])-arr[i];
+}return sum;
+}
+
+*****************************************************************************************************************************************************************
+
+Qus 13- https://leetcode.com/problems/third-maximum-number/
+int thirdMax(vector<int>& nums) {
+sort(nums.begin(),nums.end());
+set<int>s;
+int n=nums.size();
+if(n<3)
+{
+return nums[n-1];
+}else{
+set<int>s;
+for(int i=n-1;i>=0;i--)
+{
+s.insert(nums[i]);
+if(s.find(nums[i])!=s.end()&&s.size()==3)
+{
+return nums[i];
+}
+}
+}
+return nums[n-1];
+}
+
+*************************************************************************************************************************************************
+Qus 14- https://leetcode.com/problems/valid-triangle-number/
+
+
+*******************************************************************************************
+Qus 15- https://www.tutorialspoint.com/counting-frequencies-of-array-elements-in-cplusplus
+
+****************************************************************************************************************
+
+QUES-16. https://www.geeksforgeeks.org/print-all-prime-numbers-less-than-or-equal-to-n/
+#include <bits/stdc++.h> 
+using namespace std;
+bool isPrime(int n) 
+{
+ if (n <= 1) 
+return false; 
+if (n <= 3) 
+return true;
+if (n % 2 == 0 || n % 3 == 0)
+ return false;
+for (int i = 5; i * i <= n; i = i + 6)
+ if (n % i == 0 || n % (i + 2) == 0) 
+return false;
+return true; 
+}
+void printPrime(int n)
+ { 
+for (int i = 2; i <= n; i++)
+ { if (isPrime(i)) 
+cout << i << " "; 
+}
+}
+int main() 
+{ 
+int n = 100; 
+printPrime(n);
+ }
+***********************************************************************************************************
+17.https://practice.geeksforgeeks.org/problems/pascal-triangle0652/1 
+vector<ll> nthRowOfPascalTriangle(int n) 
+{ // code here
+vector<ll>v; ll a[n][n]; 
+for(int i=0;i<n;i++)
+{
+ for(int j=0;j<=i;j++) 
+{ 
+if(j==0||j==i)
+ a[i][j]=1; 
+else
+ a[i][j]=(a[i-1][j-1]+a[i-1][j])%1000000007;
+ } 
+} 
+for(int i=0;i<n;i++)
+v.push_back(a[n-1][i]);
+ return v; 
+} 
+https://practice.geeksforgeeks.org/problems/ncr1019/1# 
+int nCr(int n, int r)
+{ // code here 
+if(n<r) return 0;
+int a[n+1][r+1];
+ for(int i=0;i<=n;i++)
+ {
+ for(int j=0;j<=min(r,i);j++)
+ { 
+if(j==0||j==i) 
+a[i][j]=1; 
+else 
+a[i][j]=(a[i-1][j-1]+a[i-1][j])%1000000007;
+ } 
+}
+return a[n][r];
+}
+
+**************************************************************************************************************
+18. https://www.geeksforgeeks.org/program-to-print-double-headed-arrow-pattern/
+
+
+*****************************************************************************************************
