@@ -82,7 +82,35 @@ Sample Output
 Explanation
 Maximum Circular Sum = 22 (12 + 8 - 8 + 9 - 9 + 10)
 
+Approach 1 :
+-----------------
+int circularSubarraySum(int arr[], int num){
+        
+        // your code here
+        int max_subarray_sum=INT_MIN;
+        int min_subarray_sum=INT_MAX;
+        int MinTemp=0;
+        int MaxTemp=0;
+        int TotalSum=0;
+        for(int i=0;i<num;++i)
+        {
+            TotalSum+=arr[i];
+            MaxTemp+=arr[i];
+            max_subarray_sum=max_subarray_sum<MaxTemp?MaxTemp:max_subarray_sum;
+            MaxTemp=MaxTemp<0?0:MaxTemp;
+            
+            MinTemp+=arr[i];
+            min_subarray_sum=min_subarray_sum>MinTemp?MinTemp:min_subarray_sum;
+            MinTemp=MinTemp>0?0:MinTemp;
+        }
+        if(min_subarray_sum==TotalSum)
+        return max_subarray_sum;
+        return max(max_subarray_sum,(TotalSum-min_subarray_sum));
+    }
 
+
+Approach 2:
+------------
 class Solution {
 private:
     int kadanes(vector<int>&nums){
