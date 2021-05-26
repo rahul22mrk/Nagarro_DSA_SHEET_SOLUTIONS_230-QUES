@@ -6,7 +6,7 @@
   16  - Hard Level Ques
   
 # Total Ques Solved 
-- 1 to 67 Problems Solved  till 23 may 2k21  
+- 1 to 72 Problems Solved  till 26 may 2k21  
   
 
 # PRACTICE DAY-1
@@ -71,3 +71,6 @@
   
 # Practice Day - 7 
   Question 62 to 67
+  
+# Practice Day - 8 
+  Question 68 to 72
