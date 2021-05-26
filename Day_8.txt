@@ -1,0 +1,250 @@
+Qus 68)Andrew was attempting a mathematics test where he needed to solve problems with factorials. One such problem had an answer which equaled 100! ,He wondered what would this number look like. He tried to calculate 100! On his scientific calculator but failed to get a correct answer. Can you write a code to help Andrew calculate factorials of such large numbers?
+
+Input Format
+a single lined integer N
+
+Constraints
+1 < = N < = 500
+
+Output Format
+Print the factorial of N
+
+Sample Input
+5
+Sample Output
+120
+Explanation
+for factorial of 5 we have 5 x 4 x 3 x 2 x 1 = 120
+
+
+Java Solution :
+	public static void main (String[] args) {
+		//code
+		Scanner sc=new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0)
+		{
+		    int n=sc.nextInt();
+		   BigInteger f = new BigInteger("1");
+        for (int i = 2; i <= n; i++) 
+            f = f.multiply(BigInteger.valueOf(i));
+            
+        System.out.println(f);
+		}
+	}
+
+c++ solution://gfg solution 
+class Solution {
+public:
+   void multiply(int n, vector<int>& number) {
+        int carry = 0;
+        for (int i = 0; i < number.size(); i++) {
+            int num = n * number[i];
+            number[i] = (char)((num + carry) % 10);
+            carry = (num + carry) / 10;
+        }
+        while (carry) {
+            number.push_back(carry % 10);
+            carry /= 10;
+        }
+    }
+    vector<int> factorial(int N){
+        vector<int> number;
+        number.push_back(1);
+        for (int i = 2; i <= N; i++) 
+            multiply(i, number);
+        reverse(number.begin(), number.end()); 
+        return number;
+    }
+
+};
+
+
+***************************************************************************************************************************************************************
+Qus 69)Given an n x m matrix, where every row and column is sorted in increasing order, and a number x . Find if element x is present in the matrix or not.
+
+Input Format
+First line consists of two space separated integers N and M, denoting the number of element in a row and column respectively. Second line of each test case consists of N*M space separated integers denoting the elements in the matrix in row major order. Third line of each test case contains a single integer x, the element to be searched.
+
+Constraints
+1 <= N,M <= 30 0 <= A[i] <= 100
+
+Output Format
+Print 1 if the element is present in the matrix, else 0.
+
+Sample Input
+3 3
+3 30 38
+44 52 54
+57 60 69
+62
+Sample Output
+0
+Explanation
+Search the element in the sorted matrix. If the element is present print 1 otherwise print 0. In the sample input,in first case 62 is not present in the matrix so 0 is printed. Similarly, for second case 55 is present in the matrix so 1 is printed.
+
+
+
+
+
+ bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        
+      int target_row=0;
+        int len=matrix[0].size();
+        for(int i=0;i<matrix.size();i++)
+        {
+            if(matrix[i][len-1]>=target)
+            {
+                target_row=i;break;
+            }
+        }
+        for(int j=0;j<len;j++)
+        {
+            if(matrix[target_row][j]==target)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+*******************************************************************************************************************************************************
+
+Qus 70) We are given two sorted arrays of same size n. Find the median of an array formed after merging these two sorted arrays.
+
+Input Format
+First line contains the input n. Second and Third line contains n space separated integers.
+
+Constraints
+N < 1000
+
+Output Format
+Print the median in a single line.
+
+Sample Input
+5
+1 3 5 7 9
+2 4 6 8 10
+Sample Output
+5
+Explanation
+Merged Array: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] So the median element is 5
+
+
+
+
+ bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        
+      int target_row=0;
+        int len=matrix[0].size();
+        for(int i=0;i<matrix.size();i++)
+        {
+            if(matrix[i][len-1]>=target)
+            {
+                target_row=i;break;
+            }
+        }
+        for(int j=0;j<len;j++)
+        {
+            if(matrix[target_row][j]==target)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+********************************************************************************************************************************************
+
+
+Qus 71) Take as input S, a string. Write a program that inserts between each pair of characters the difference between their ascii codes and print the ans.
+
+Input Format
+String
+
+Constraints
+Length of String should be between 2 to 1000.
+
+Output Format
+String
+
+Sample Input
+acb
+Sample Output
+a2c-1b
+Explanation
+For the sample case, the Ascii code of a=97 and c=99 ,the difference between c and a is 2.Similarly ,the Ascii code of b=98 and c=99 and their difference is -1. So the ans is a2c-1b.
+
+
+
+string solveString(string str)
+{
+
+	int len=str.size();
+	string res="";
+	for(int i=0;i<len-1;i++)
+	{
+
+		int d1=(int)str[i]-48;
+		int d2=(int)str[i+1]-48;
+		int dif=d2-d1;
+		string s=to_string(dif);
+		res+=str[i];
+		res+=s;
+
+	}
+	res+=str[len-1];
+	return res;
+}
+
+****************************************************************************************************************************************************
+
+Qus 72)Prateek is an extremely gifted student. He is great at everything including Combinatorics, Algebra, Number Theory, Geometry, Calculus, etc. He is not only smart but extraordinarily fast!.
+
+One day Prateek was trying to find out if any one can possibly do calculations faster than him. As a result he made a very great contest and asked every one to come and take part.
+
+In his contest he gave the contestants many different pairs of numbers. Each number is made from digits 0 or 1. The contestants should write a new number corresponding to the given pair of numbers. The rule is simple: The i-th digit of the answer is 1 if and only if the i-th digit of the two given numbers differ. In the other case the i-th digit of the answer is 0.
+
+Prateek made many numbers and first tried his own speed. He saw that he can perform these operations on numbers of length ∞ (length of a number is number of digits in it) in a glance! He always gives correct answers so he expects the contestants to give correct answers, too. He is a good fellow so he won't give anyone very big numbers and he always gives one person numbers of same length.
+
+Now you are going to take part in Shapur's contest. See if you are faster and more accurate.
+
+Input Format
+The first line contains an integer t , the no. of testcases. There are two inputs in each line. Each of them contains a single number. It is guaranteed that the numbers are made from 0 and 1 only and that their length is same. The numbers may start with 0.
+
+Constraints
+The length of each number doesn't exceed 100.
+
+Output Format
+Write t lines — the corresponding answer to the corresponding input. Do not omit the leading 0s.
+
+Sample Input
+1
+10111 10000
+Sample Output
+00111
+Explanation
+For the given example, Let str1 = "10111" and str2 = "10000", Value at first position of str1 is 1 and first position str2 is 1, hence according to the rule there will be 0 at the first position of the final ans.Similarly, for second position the value at second position of both of the strings is 0,so , there will be 0 at the second position of the final ans.Similarly, for third position the value at third position of str1 is 1 and str2 is 0,so , there will be 1 at the third position of the final ans and So, on. 
+
+
+
+
+
+
+string calculateRes(string str1,string str2)
+{
+   int len=str1.size();
+   string res="";
+   for(int i=0;i<len;i++)
+   {
+
+   	if(str1[i]==str2[i])
+		res+='0';
+	else
+		res+='1';
+   }
+   return res;
+
+}
+******************************************************************************************************************************************************
