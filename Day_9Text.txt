@@ -1,0 +1,484 @@
+73)You are given two integers n and k. Find the greatest integer x, such that, x^k <= n.
+
+Input Format
+First line contains number of test cases, T. Next T lines contains integers, n and k.
+
+Constraints
+1<=T<=10
+1<=N<=10^15
+1<=K<=10^4
+
+Output Format
+Output the integer x
+
+Sample Input
+2
+10000 1
+1000000000000000 10
+Sample Output
+10000
+31
+Explanation
+For the first test case, for x=10000, 10000^1=10000=n
+
+Approach-1 :
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		long double n,k;
+      cin>>n>>k;
+
+		long double logn=log(n)/k;
+
+		long double x=exp(logn) ;
+		cout<<(int)(x)<<endl;
+	}
+}
+
+
+
+
+****************************************************************************************************************************************************
+
+
+
+74)
+Take as input N, a number. Take N more inputs and store that in an array. Write a recursive function which tests if the array is a palindrome and returns a Boolean value. Print the value returned.
+
+Input Format
+Enter a number N , add N more numbers
+
+Constraints
+None
+
+Output Format
+Display the Boolean result
+
+Sample Input
+4
+1
+2
+2
+1
+Sample Output
+true
+
+#include<bits/stdc++.h>
+using namespace std;
+bool palindrome(int arr[],int l,int h)
+{
+
+	if(l<=h)
+	{
+		int left=arr[l];
+		int right=arr[h];
+		if(left!=right)
+			return false;
+			l++;
+			h--;
+		return palindrome(arr,l,h);
+	}
+	return true;
+}
+int main()
+{
+
+	int n;
+	cout<<"Enter the size of the array : ";
+	cin>>n;
+	int arr[n];
+	cout<<"Enter the Input Data ";
+	for(int i=0;i<n;i++)
+	{
+
+		cin>>arr[i];
+	}
+    if(palindrome(arr,0,n-1))
+	{
+
+		cout<<"Given Data is Palindrome ";
+	}
+	else
+		cout<<"Given Data is not Palindrome ";
+}
+
+
+
+
+*********************************************************************************************************************************************************
+
+
+
+
+75)
+Kartik Bhaiya has a string consisting of only 'a' and 'b' as the characters. Kartik Bhaiya describes perfectness of a string as the maximum length substring of equal characters. Kartik Bhaiya is given a number k which denotes the maximum number of characters he can change. Find the maximum perfectness he can generate by changing no more than k characters.
+
+Input Format
+The first line contains an integer denoting the value of K. The next line contains a string having only ‘a’ and ‘b’ as the characters.
+
+Constraints
+2 ≤ N ≤ 10^6
+
+Output Format
+A single integer denoting the maximum perfectness achievable.
+
+Sample Input
+2
+abba
+Sample Output
+4
+Explanation
+We can swap the a's to b using the 2 swaps and obtain the string "bbbb". This would have all the b's and hence the answer 4.
+Alternatively, we can also swap the b's to make "aaaa". The final answer remains the same for both cases.
+
+
+
+
+*************************************************************************************************************************************************
+
+
+
+76)
+One of the important aspect of object oriented programming is readability of the code. To enhance the readability of code, developers write function and variable names in Camel Case. You are given a string, S, written in Camel Case. FindAllTheWordsContainedInIt.
+
+Input Format
+A single line contains the string.
+
+Constraints
+|S|<=1000
+
+Output Format
+Print words present in the string, in the order in which it appears in the string.
+
+Sample Input
+IAmACompetitiveProgrammer
+Sample Output
+I
+Am
+A
+Competitive
+Programmer
+Explanation
+There are 5 words in the string.
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+ string str;
+ cout<<"Enter the Input ";
+ cin>>str;
+ int len=str.size();
+ int i=0,j=len-1;
+ for(int i=0;i<len-1; )
+ {
+
+ 	string temp="";
+ 	temp+=str[i];
+
+ 	while(!(str[i+1]>=65&&str[i+1]<=92))
+	{
+
+		temp+=str[i+1];
+		i++;
+		if(str[i+1]==' ')
+			break;
+
+	}
+   i++;
+	cout<<temp<<endl;
+
+ }
+}
+
+
+
+*************************************************************************************************************************************************
+
+
+
+
+77)
+
+Take the following as input.
+
+A character (ch) Write a function that returns ‘U’, if it is uppercase; ‘L’ if it is lowercase and ‘I’ otherwise. Print the value returned.
+
+Input Format
+Character (ch)
+
+Constraints
+No constraints
+
+Output Format
+'L' (if ch is lower-case) 'U' (if ch is upper-case) 'I' (otherwise)
+
+Sample Input
+s
+Sample Output
+L
+Explanation
+Anyone can Do it using Ascii codes. I dare you - "Try to not use ascii codes." ;)
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+
+    char ch;
+    cin>>ch;
+    if(ch>='a'&&ch<='z')
+        cout<<"L";
+    else if(ch>='A'&&ch<='Z')
+        cout<<"U";
+    else
+        cout<<"Invalid";
+}
+
+
+
+
+*************************************************************************************************************************************************************
+
+
+
+
+78)
+Print "lowercase" if user enters a character between 'a-z' , Print "UPPERCASE" is character lies between 'A-Z' and print "Invalid" for all other characters like $,.^# etc.
+
+Input Format
+Single Character .
+
+Constraints
+-
+
+Output Format
+lowercase UPPERCASE Invalid
+
+Sample Input
+$
+Sample Output
+Invalid
+Explanation
+-
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+
+    char ch;
+    cin>>ch;
+    if(ch>='a'&&ch<='z')
+        cout<<"lowercase";
+    else if(ch>='A'&&ch<='Z')
+        cout<<"UPPERCASE";
+    else
+        cout<<"Invalid";
+}
+
+
+
+
+**********************************************************************************************************************************************************
+
+
+
+
+79)
+Piyush is lost in a magical park which contains N rows and M columns.In order to get out of park safely and return home, he needs atleast K amount of strength.Given a N by M pattern, your task is to find weather Piyush can ever escape the park.
+
+
+
+Piyush enters the park with strength S. The park is filled with some obstacles denoted by ‘.’ , some magical beans denoted by ‘*’ and some blockades denoted as ‘#’. If he encounters an obstacle (.) , strength decreases by 2. If he encounters a magic bean (' * ') , his strength increases by 5. Piyush can only walk row wise, so he starts from left of a row and moves towards right and he does this for every row. However when he encounters a blockade (#) , he cannot go any further in his current row and simply jumps to the start of a new line without losing any strength. Piyush requires a strength of 1 for every step. His strength should always be greater than K while traversing or else Piyush will get lost. Assume that Piyush can shift immediately from last of one row to the start of next one without loss of any strength, help out Piyush to escape the park. His escape is successful if he is able to return home with atleast K strength.
+
+Input Format
+First line of input contains four integers – N,M,K and S. Next N lines contains M space separated characters which can be '.', '*' or '#'.
+
+Constraints
+1 <= N,M,K,S <= 100
+
+Output Format
+Print "Yes" or "No" depending on whether Piyush can escape or not. If the answer is "Yes", also print the amount of strength he escaped with.
+
+Sample Input
+4 4 5 20
+. . * .
+. # . .
+* * . .
+. # * *
+Sample Output
+Yes
+13
+Explanation
+Piyush starts with strength S=20.
+For first row, he encounters a obstacle ‘.’ and his strength reduces by 3 ( 2+1 ( 1 for taking the step) ). Similarly after the second obstacle , his strength reduces by 3 again and becomes S=14. Then he encounters a '*' , and his strength increases by 5 but decreases by 1 for taking the step. Then his strength reduces by 2 (Not 3 as he will jump with no extra strength from here) after the last '.' . At the end of the first row his strength is S=16.
+
+In the second row, he encounters a ‘.’ and his strength reduces by 3( 2+1 for the '.' ). Then he encounters a '#' and without losing any extra strength simply jumps to the first cell of the next row.
+Similarly, his strength at the beginning of the third row is 13 and after completing it, his strength is 16.
+In the fourth row, he first encounters a '.' and his strength reduces to 13. Then he encounters a '#' at the second position and jumps to the next row. Since this is the last row, when he jumps he escapes from the park .
+His strength left is 13. Since this is clearly greater than K=5, his escape was successful.
+Piyush escaped with final strength = 13.
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int strength;
+bool checkStrength(vector<vector<char>>arr,int m,int n,int k ,int s)
+{
+	if(s<k)
+		return false;
+	for(int i=0;i<m;i++)
+	{
+
+		for(int j=0;j<n;j++)
+		{
+
+			if(arr[i][j]=='.')
+			{
+				s-=2;
+				if(j<n-1)s--;
+			}
+	        else if(arr[i][j]=='*')
+			{
+					s+=5;
+			if(j<n-1)
+				s--;
+	        }
+	        else if(arr[i][j]=='#')
+			{
+                break;
+			}
+			if(s<k)
+				return false;
+
+		}
+	}
+	strength=s;
+	return true;
+}
+int main()
+{
+
+	int m,n,k,s;
+	cin>>m>>n>>k>>s;
+	//char arr[m][n];
+	vector<vector<char>>arr;
+	for(int i=0;i<m;i++)
+	{
+       vector<char>temp;
+		for(int j=0;j<n;j++)
+		{
+			char ch;
+			cin>>ch;
+
+			temp.push_back(ch);
+		}
+		arr.push_back(temp);
+
+	}
+
+	if(checkStrength(arr,m,n,k,s))
+		{
+			cout<<"YES"<<endl;
+			cout<<strength;
+		}
+		else
+			cout<<"NO";
+
+}
+
+
+
+
+
+****************************************************************************************************************************************************
+
+
+
+
+80)
+
+Deepak and Gautam are having a discussion on a new type of number that they call Coding Blocks Number or CB Number. They use following criteria to define a CB Number.
+
+0 and 1 are not a CB number.
+2,3,5,7,11,13,17,19,23,29 are CB numbers.
+Any number not divisible by the numbers in point 2( Given above) are also CB numbers.
+Deepak said he loved CB numbers.Hearing it, Gautam throws a challenge to him.
+
+Gautam will give Deepak a string of digits. Deepak's task is to find the number of CB numbers in the string.
+
+CB number once detected should not be sub-string or super-string of any other CB number.
+Ex- In 4991, both 499 and 991 are CB numbers but you can choose either 499 or 991, not both.
+
+Further, the CB number formed can only be a sub-string of the string.
+Ex - In 481, you can not take 41 as CB number because 41 is not a sub-string of 481.
+
+As there can be multiple solutions, Gautam asks Deepak to find the maximum number of CB numbers that can be formed from the given string.
+
+Deepak has to take class of Launchpad students. Help him by solving Gautam's challenge.
+
+Input Format
+First line contain size of the string.
+
+Next line is A string of digits.
+
+Constraints
+1 <= Length of strings of digits <= 17
+
+Output Format
+Maximum number of CB numbers that can be formed.
+
+Sample Input
+5
+81615
+Sample Output
+2
+Explanation
+61 and 5 are two CB numbers.
+
+
+
+
+***************************************************************************************************************************************************
+
+
+
+
+Q_81  You are given number of pages in n different books and m students. The books are arranged in ascending order of number of pages. Every student is assigned to read some consecutive books. The task is to assign books in such a way that the maximum number of pages assigned to a student is minimum.
+
+Input Format
+First line contains integer t as number of test cases. Next t lines contains two lines. For each test case, 1st line contains two integers n and m which represents the number of books and students and 2nd line contains n space separated integers which represents the number of pages of n books in ascending order.
+
+Constraints
+1 < t < 50
+1< n < 100
+1< m <= 50
+1 <= Ai <= 1000
+
+Output Format
+Print the maximum number of pages that can be assigned to students.
+
+Sample Input
+1
+4 2
+12 34 67 90
+Sample Output
+113 
+Explanation
+1st students : 12 , 34, 67 (total = 113)
+2nd students : 90 (total = 90)
+Print max(113, 90)
+
+
+
+**********************************************************************************************************************************************************
